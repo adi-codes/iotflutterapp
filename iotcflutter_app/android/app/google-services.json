@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "303227223641",
+    "firebase_url": "https://flutteriot-c454d.firebaseio.com",
+    "project_id": "flutteriot-c454d",
+    "storage_bucket": "flutteriot-c454d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303227223641:android:da5bc039d2e2f57b11fb48",
+        "android_client_info": {
+          "package_name": "com.example.iotcflutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303227223641-8eohu1nupft5a4857cdt20qmfjt1ktin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJGgvODKJscob_jv7sy_f3CY9kDhNPMjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303227223641-8eohu1nupft5a4857cdt20qmfjt1ktin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
