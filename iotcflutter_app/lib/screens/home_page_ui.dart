@@ -17,6 +17,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final firebaseReference = FirebaseDatabase.instance.reference();
+
   String t='';
   int _counter = 10;
   String formattedDate='';
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print(value);
     });
     checkConn();
-    
+    _messaging.subscribeToTopic("pushNotifications");
   }
   /*
   Future<void> getCounterValue() async {
@@ -45,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      _counter=10;;
+      _counter=10;
     });
   }
 
