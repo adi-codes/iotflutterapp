@@ -13,14 +13,9 @@ exports.detectCountChange = functions.database.ref("var/val").onUpdate((change, 
         var type = 0;
         var title = "";
         var body = "";
-        if (change.after.val() <= 5) type = 1;
-        functions.logger.info("the count is changed");
-        console.log(change.after.val());
-        functions.logger.info(change.before.val());
-        console.log(isNaN(change.after.val()));
-        if (change.after.val() < change.before.val()) {
-            functions.logger.info("the count is changed - inside the if condition");
-            functions.logger.info(change.before);
+        if (change.after.val() <= 5)
+            type = 1;
+        else if (change.after.val() < change.before.val()) {
             type = 2;
         }
 
