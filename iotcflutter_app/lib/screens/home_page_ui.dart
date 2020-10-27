@@ -25,6 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String formattedNow='';
   int chk=1;
   int perc=50;
+  int proof1=0,proof2=0;
   int f=0;
   final FirebaseMessaging _messaging = FirebaseMessaging();
 
@@ -276,13 +277,18 @@ class _MyHomePageState extends State<MyHomePage> {
                               width:540.0,
                               color:Colors.black,)
                         ),
-                        Text(
-                          "BATTERY: "+perc.toString()+"%",
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold
-                          ),
+                        StreamBuilder(
+                            stream: firebaseReference.child("bat").onValue,
+                            builder: (context, snapshot) {
+                            return Text(
+                              "BATTERY: "+snapshot.data.snapshot.value['perc'].toString()+"%",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            );
+                          }
                         ),
                        /* RaisedButton(
                           child: Text("TURN ON NOTIFICATIONS"),
@@ -327,23 +333,40 @@ class _MyHomePageState extends State<MyHomePage> {
     await firebaseReference.child("var").set({"val": _counter});
   }
   Future<void> checkConn() async{
-    await firebaseReference.child("chk").set({"f": 0});
-    await firebaseReference.child("ch").set({"c": 1});
-    await Future.delayed(const Duration(seconds: 5), (){});
-    await firebaseReference.once().then((DataSnapshot dataSnapshot){
-      f=dataSnapshot.value['chk']['f'];
-    });
-    print('checking...');
-    if(f==1) {
-      setState(() {chk = 1;});
-      print('Inhaler connected!');
+    while(true) {
+        await firebaseReference.once().then((DataSnapshot datSnapshot){
+          proof1=datSnapshot.value['conn']['proof'];
+        });
+        //await firebaseReference.child("chk").set({"f": 0});
+        //await firebaseReference.child("ch").set({"c": 1});
+        await Future.delayed(const Duration(seconds: 5), () {});
+        await firebaseReference.once().then((DataSnapshot datSnapshot){
+          proof2=datSnapshot.value['conn']['proof'];
+        });
+
+        print('checking...');
+        if (proof2>proof1) {
+          setState(() {
+          chk = 1;
+          if(f!=1) {
+            firebaseReference.child("chk").set({"f": 1});
+            f = 1;
+          }
+        });
+          print('Inhaler connected!');
+      }
+      else
+        setState(() {
+          chk = 0;
+          if(f!=0) {
+            firebaseReference.child("chk").set({"f": 0});
+            f=1;
+          }
+        });
+      //await firebaseReference.child("ch").set({"c": 0});
+
+      f = 0;
     }
-    else
-      setState(() {chk = 0;});
-    await firebaseReference.child("ch").set({"c": 0});
-
-    f=0;
-
   }
   
 }

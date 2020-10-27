@@ -51,8 +51,7 @@ exports.detectCountChange = functions.database.ref("var/val").onUpdate((change, 
             .sendToTopic("pushNotifications", payload, options);
     });
 
-exports.checkIfConnected = functions.database
-    .ref("chk/f")
+exports.checkIfConnected = functions.database.ref("chk/f")
     .onUpdate((change, context) => {
         if (change.after.val() === 0) {
             const title = "Inhaler status";
