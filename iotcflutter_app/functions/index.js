@@ -13,19 +13,19 @@ exports.detectCountChange = functions.database.ref("var/val").onUpdate((change, 
         var type = 0;
         var title = "";
         var body = "";
-        if (change.after.val() <= 5)
-            type = 1;
-        else if (change.after.val() < change.before.val()) {
+        if (change.after.val() < change.before.val()) {
             type = 2;
         }
+        if (change.after.val() <= 5)
+             type = 1;
 
         if (type === 0) return "nothing";
 
-        if (type === 1) {
+        if (type === 2) {
             title = "Inhaler status";
             body = `Inhaler used. Remaining count is : ${change.after.val()}`;
         }
-        else if (type === 2) {
+        else if (type === 1) {
             title = "Inhaler status";
             body = `Inhaler level critically low. Remaining count is : ${change.after.val()}`;
         }
