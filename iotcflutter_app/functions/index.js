@@ -30,6 +30,7 @@ exports.detectCountChange = functions.database.ref('var/val').onUpdate((change, 
                     const options = {
                             priority: "high",
                             timeToLive: 60 * 60 * 24
+
                         };
             return admin.messaging().sendToTopic("pushNotifications", payload, options);
     }
@@ -37,7 +38,8 @@ exports.detectCountChange = functions.database.ref('var/val').onUpdate((change, 
     return "nothing";
 });
 
-exports.detectCountChange = functions.database.ref('chk/f').onUpdate((change, context) => {
+exports.checkIfConnected = functions.database.ref('chk/f').onUpdate((change, context) => {
+
     if(change.after.val() === 0) {
         const title = "Inhaler status";
         const body = "Inhaler disconnected";
