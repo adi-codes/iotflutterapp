@@ -87,3 +87,25 @@ exports.checkIfConnected = functions.database
                 .sendToTopic("pushNotifications", payload, options);
         }
     });
+
+    exports.batteryPercentage = functions.database.ref("bat/perc").onUpdate((change, context) => {
+    if (change.after.val() === 20) {
+            const title = "Battery status";
+            const body = `Battery critically low. Please charge. Battery percentage:${change.after.val()}`;
+            const payload = {
+                notification: {
+                    title: title,
+                    body: body,
+                    sound: "default",
+                },
+                data: { click_action: "FLUTTER_NOTIFICATION_CLICK" },
+            };
+            const options = {
+                priority: "high",
+                timeToLive: 60 * 60 * 24,
+            };
+            return admin
+                .messaging()
+                .sendToTopic("pushNotifications", payload, options);
+        }
+    });
