@@ -91,4 +91,8 @@ exports.checkIfConnected = functions.database
                 .messaging()
                 .sendToTopic("pushNotifications", payload, options);
         }
+<<<<<<< HEAD
     });
+=======
+    });
+>>>>>>> siddharth
