@@ -1,3 +1,5 @@
+import 'package:iotcflutter_app/screens/login_screen.dart';
+
 import 'screens/home_page_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Counter'),
+      home: LoginPage()
     );
   }
 }
