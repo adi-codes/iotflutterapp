@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:iotcflutter_app/helpers/list_item_gender.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -185,6 +186,8 @@ class _RegistrationPatientState extends State<RegistrationPatient> {
       );
   }
   Future<void> _submitDetails(String userId,String name,String _email,String sex,int mobile,int _age) async{
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    var token = await _firebaseMessaging.getToken();
     print(name);
     print(_email);
     print(sex);
@@ -210,7 +213,9 @@ class _RegistrationPatientState extends State<RegistrationPatient> {
       },
       'var':{
         'val':10
-      }
+      },
+      'uid' : userId,
+      'token' : token
     });
   }
 }
